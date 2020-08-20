@@ -41,6 +41,14 @@ namespace MemoryCache.NetCore
             }
         }
 
+        public Dictionary<string, dynamic>.Enumerator GetEnumerator()
+        {
+            var buffer = _buffer
+                .ToDictionary(entry => entry.Key, entry => entry.Value.Value);
+
+            return buffer.GetEnumerator();
+        }
+
         public void Write(string key, dynamic value)
         {
             _buffer[key] = new CacheEntry<dynamic>()
